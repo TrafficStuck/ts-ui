@@ -7,7 +7,7 @@ script:
 
 deploy:
   provider: heroku
-  app: traffic-stuck-api
+  app: traffic-stuck
   api_key: $HEROKU_TOKEN
   on:
     branch: master
