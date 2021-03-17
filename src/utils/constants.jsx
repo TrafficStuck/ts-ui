@@ -5,7 +5,7 @@ import React from "react"
 export const BIG_ICON_SIZE = 54
 
 // COLORS
-export const YELLOW_COLOR = "#EBC673"
+export const YELLOW_COLOR = "#ebc673"
 export const BLACK_COLOR = "#1A1A1A"
 export const BLACK_LIGHT_COLOR = "#282828"
 export const GREY_COLOR = "#C6C6C6"
@@ -30,7 +30,7 @@ export const RED_YELLOW_GRADIENT = [
 // CHART STUFF
 export const CHART_WIDTH = 300
 export const CHART_HEIGHT = 250
-export const CHART_ANIMATION = 1500
+export const CHART_ANIMATION = 150
 
 // ENDPOINTS PATHS
 export const TIMESERIES_PATH = "/traffic"
