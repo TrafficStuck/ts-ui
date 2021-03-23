@@ -11,8 +11,6 @@ export const BLACK_LIGHT_COLOR = "#282828"
 export const GREY_COLOR = "#C6C6C6"
 export const GREY_DARK_COLOR = "#8d8c8c"
 export const WHITE_COLOR = "#FFFFFF"
-export const BLUE_COLOR = "#6AD1F1"
-export const GREEN_COLOR = "#A8F14C"
 export const RED_COLOR = "#EC5353"
 export const RED_YELLOW_GRADIENT = [
     "#EBC673",
@@ -45,6 +43,4 @@ export const PERIOD_KEY = "period"
 export const HOUR_SECONDS = 3600
 
 // THEMES
-export const GREEN_THEME = "green"
-export const BLUE_THEME = "blue"
 export const YELLOW_THEME = "yellow"
