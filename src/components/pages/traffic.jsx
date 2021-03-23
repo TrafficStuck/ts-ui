@@ -6,7 +6,7 @@ import AreaNumber from "@components/tiles/areaNumber/areaNumber"
 import ScatterTime from "@components/tiles/scatterTime/scatterTime"
 
 import Icon from "@icons/icon"
-import { BIG_ICON_SIZE, ROUTE_KEY, PERIOD_KEY, HOUR_SECONDS, BLUE_THEME as theme } from "@utils/constants"
+import { BIG_ICON_SIZE, ROUTE_KEY, PERIOD_KEY, HOUR_SECONDS, YELLOW_THEME as theme } from "@utils/constants"
 
 
 export default class TrafficPage extends React.PureComponent {
