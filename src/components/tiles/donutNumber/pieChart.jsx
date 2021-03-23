@@ -2,7 +2,7 @@ import React from "react"
 
 import { PieChart as PieContainer, Pie, Cell } from "recharts"
 
-import { GREEN_COLOR, CHART_HEIGHT, CHART_WIDTH, BLACK_LIGHT_COLOR, CHART_ANIMATION } from "@utils/constants"
+import { YELLOW_COLOR, CHART_HEIGHT, CHART_WIDTH, BLACK_LIGHT_COLOR, CHART_ANIMATION } from "@utils/constants"
 
 
 const CHART_PIE_ANGLE = 270
@@ -49,12 +49,12 @@ export default class PieChart extends React.PureComponent {
             >
                 <defs>
                     <radialGradient id="pie-cell" gradientUnits="userSpaceOnUse">
-                        <stop offset="25%" stopColor={GREEN_COLOR} stopOpacity={0.0} />
-                        <stop offset="100%" stopColor={GREEN_COLOR} stopOpacity={1} />
+                        <stop offset="25%" stopColor={YELLOW_COLOR} stopOpacity={0.0} />
+                        <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={1} />
                     </radialGradient>
                     <radialGradient id="pie-cell-active" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stopColor={GREEN_COLOR} stopOpacity={0.5} />
-                        <stop offset="100%" stopColor={GREEN_COLOR} stopOpacity={1} />
+                        <stop offset="0%" stopColor={YELLOW_COLOR} stopOpacity={0.5} />
+                        <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={1} />
                     </radialGradient>
                 </defs>
                 {this.renderPie(data, 70, 80, activeIndex, changeActive)}

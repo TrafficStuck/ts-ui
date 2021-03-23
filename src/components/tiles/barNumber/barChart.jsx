@@ -2,7 +2,7 @@ import React from "react"
 
 import { BarChart as BarContainer, Bar, Cell } from "recharts"
 
-import { GREEN_COLOR, CHART_HEIGHT, CHART_WIDTH, CHART_ANIMATION } from "@utils/constants"
+import { YELLOW_COLOR, CHART_HEIGHT, CHART_WIDTH, CHART_ANIMATION } from "@utils/constants"
 
 
 const CHART_BAR_WIDTH = 15
@@ -24,12 +24,12 @@ export default class BarChart extends React.PureComponent {
             >
                 <defs>
                     <linearGradient id="bar-cell" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={GREEN_COLOR} stopOpacity={0.5}/>
-                        <stop offset="100%" stopColor={GREEN_COLOR} stopOpacity={0.0}/>
+                        <stop offset="0%" stopColor={YELLOW_COLOR} stopOpacity={0.5}/>
+                        <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={0.0}/>
                     </linearGradient>
                     <linearGradient id="bar-cell-active" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={GREEN_COLOR} stopOpacity={1}/>
-                        <stop offset="100%" stopColor={GREEN_COLOR} stopOpacity={0.0}/>
+                        <stop offset="0%" stopColor={YELLOW_COLOR} stopOpacity={1}/>
+                        <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={0.0}/>
                     </linearGradient>
                 </defs>
                 <Bar

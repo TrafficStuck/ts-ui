@@ -4,7 +4,7 @@ import ChartsContainer from "@components/common/chartsContainer"
 import BarNumber from "@components/tiles/barNumber/barNumber"
 import DonutNumber from "@components/tiles/donutNumber/donutNumber"
 
-import { GREEN_THEME as theme } from "@utils/constants"
+import { YELLOW_THEME as theme } from "@utils/constants"
 
 
 export default class TransportPage extends React.PureComponent {

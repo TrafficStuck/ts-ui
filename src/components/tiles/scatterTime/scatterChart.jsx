@@ -2,7 +2,7 @@ import React from "react"
 
 import { ScatterChart as ScatterContainer, Scatter, XAxis, YAxis } from "recharts"
 
-import { BLUE_COLOR, CHART_HEIGHT, CHART_WIDTH } from "@utils/constants"
+import { YELLOW_COLOR, CHART_HEIGHT, CHART_WIDTH } from "@utils/constants"
 
 
 const SCATTER_CHART_HEIGHT = CHART_HEIGHT + 100
@@ -19,7 +19,7 @@ export default class ScatterChart extends React.PureComponent {
             >
                 <XAxis domain={["auto", "auto"]} type="number" dataKey="latitude" hide={true}/>
                 <YAxis domain={["auto", "auto"]} type="number" dataKey="longitude" hide={true}/>
-                <Scatter data={data} fill={BLUE_COLOR}/>
+                <Scatter data={data} fill={YELLOW_COLOR}/>
             </ScatterContainer>
         )
     }
