@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import ChartHeader from "@components/common/chartHeader"
 import ChartLoader from "@components/common/chartLoader"
@@ -13,75 +13,64 @@ import { STATIC_PATH } from "@utils/constants"
 import "./barNumber.sass"
 
 
-export default class BarNumber extends React.Component {
+const BarNumber = ({ path, title }) => {
 
-    state = {
-        loading: false,
-        error: false,
-        data: [],
-        activeIndex: 0,
-    }
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [data, setData] = useState([])
+    const [activeIndex, setActiveIndex] = useState(0)
 
-    componentDidMount() {
-        this.queryData()
-    }
+    useEffect(() => queryData(), [])
 
-    queryData = () => {
-        const { path } = this.props
+    const queryData = () => {
+        setLoading(true)
 
-        this.setState({ loading: true })
         const endpointPath = `${STATIC_PATH}/${path}`
         request.get(endpointPath)
             .then(response => {
-                this.setState({
-                    data: response.data.result,
-                    loading: false,
-                    error: false,
-                })
+                setLoading(false)
+                setError(false)
+                setData(response.data.result)
             })
             .catch(() => {
-                this.setState({
-                    error: true,
-                })
+                setLoading(false)
+                setError(true)
             })
     }
 
-    changeActive = (bar, index) => {
-        this.setState({ activeIndex: index })
-    }
+    if (error) return (
+        <ChartCell className="bar-number">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartMessage text="Data could not be loaded" icon="error-icon"/>
+        </ChartCell>
+    )
+    else if (loading) return (
+        <ChartCell className="bar-number">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartLoader/>
+        </ChartCell>
+    )
+    else if (!data.length) return (
+        <ChartCell className="bar-number">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartMessage text="No data points" icon="warning-icon"/>
+        </ChartCell>
+    )
 
-    render() {
-        const { error, loading, data, activeIndex } = this.state
-        const { title, theme } = this.props
-
-        if (error) return (
-            <ChartCell className="bar-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartMessage theme={theme} text="Data could not be loaded" icon="error-icon"/>
-            </ChartCell>
-        )
-        else if (loading) return (
-            <ChartCell className="bar-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartLoader theme={theme}/>
-            </ChartCell>
-        )
-        else if (!data.length) return (
-            <ChartCell className="bar-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartMessage theme={theme} text="No data points" icon="warning-icon"/>
-            </ChartCell>
-        )
-
-        const { id, value } = data[activeIndex]
-        return (
-            <ChartCell className="bar-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartInfo theme={theme} main={value} sub={`Transport: ${id}`}/>
-                <div className="bar-chart">
-                    <BarChart data={data} activeIndex={activeIndex} changeActive={this.changeActive}/>
-                </div>
-            </ChartCell>
-        )
-    }
+    const { id, value } = data[activeIndex]
+    return (
+        <ChartCell className="bar-number">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartInfo main={value} sub={`Transport: ${id}`}/>
+            <div className="bar-chart">
+                <BarChart
+                    data={data}
+                    activeIndex={activeIndex}
+                    changeActive={(bar, index) => setActiveIndex(index)}
+                />
+            </div>
+        </ChartCell>
+    )
 }
+
+export default BarNumber

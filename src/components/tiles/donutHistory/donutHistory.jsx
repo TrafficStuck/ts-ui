@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import ChartHeader from "@components/common/chartHeader"
 import ChartLoader from "@components/common/chartLoader"
@@ -17,75 +17,64 @@ import "./donutHistory.sass"
 const CHART_LIMIT_ITEMS = 18
 
 
-export default class DonutHistory extends React.Component {
+const DonutHistory = ({ title }) => {
 
-    state = {
-        loading: false,
-        error: false,
-        data: [],
-    }
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [data, setData] = useState([])
 
-    componentDidMount() {
-        this.queryData()
-    }
+    useEffect(() => queryData(), [])
 
-    queryData = () => {
-        const { title } = this.props
+    const queryData = () => {
+        setLoading(true)
 
-        this.setState({ loading: true })
         const endpointPath = `${CONGESTION_PATH}/${title}`
         request.get(endpointPath, { limit: CHART_LIMIT_ITEMS })
             .then(response => {
                 const { result } = response.data
-                this.setState({
-                    data: result,
-                    loading: false,
-                    error: false,
-                })
+                setLoading(false)
+                setError(false)
+                setData(result)
             })
             .catch(() => {
-                this.setState({
-                    error: true,
-                })
+                setLoading(false)
+                setError(true)
             })
     }
 
-    render() {
-        const { data, error, loading } = this.state
-        const { title, theme } = this.props
+    if (error) return (
+        <ChartCell className="donut-history">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartMessage text="Data could not be loaded" icon="error-icon"/>
+        </ChartCell>
+    )
+    else if (loading) return (
+        <ChartCell className="donut-history">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartLoader/>
+        </ChartCell>
+    )
+    else if (!data.length) return (
+        <ChartCell className="donut-history">
+            <ChartHeader refresh={queryData} title={title} />
+            <ChartMessage text="No data points" icon="warning-icon"/>
+        </ChartCell>
+    )
 
-        if (error) return (
-            <ChartCell className="donut-history">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartMessage theme={theme} text="Data could not be loaded" icon="error-icon"/>
-            </ChartCell>
-        )
-        else if (loading) return (
-            <ChartCell className="donut-history">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartLoader theme={theme}/>
-            </ChartCell>
-        )
-        else if (!data.length) return (
-            <ChartCell className="donut-history">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <ChartMessage theme={theme} text="No data points" icon="warning-icon"/>
-            </ChartCell>
-        )
-
-        const lastItem = data[data.length - 1]
-        const lastItemPercentage = `${Math.round(lastItem.value)}%`
-        return (
-            <ChartCell className="donut-history">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} />
-                <div className="pie-chart">
-                    <ChartInfo theme={theme} main={lastItemPercentage} />
-                    <PieChart data={lastItem} />
-                </div>
-                <div className="bar-chart">
-                    <BarChart data={data} />
-                </div>
-            </ChartCell>
-        )
-    }
+    const lastItem = data[data.length - 1]
+    const lastItemPercentage = `${Math.round(lastItem.value)}%`
+    return (
+        <ChartCell className="donut-history">
+            <ChartHeader refresh={queryData} title={title} />
+            <div className="pie-chart">
+                <ChartInfo main={lastItemPercentage} />
+                <PieChart data={lastItem} />
+            </div>
+            <div className="bar-chart">
+                <BarChart data={data} />
+            </div>
+        </ChartCell>
+    )
 }
+
+export default DonutHistory

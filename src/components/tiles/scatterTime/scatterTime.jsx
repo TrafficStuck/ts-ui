@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import ChartCell from "@components/common/chartCell"
 import ChartHeader from "@components/common/chartHeader"
@@ -13,85 +13,68 @@ import { formatTime } from "@utils/helpers"
 import "./scatterTime.sass"
 
 
-export default class ScatterTime extends React.Component {
+const ScatterTime = ({ route, path, title }) => {
 
-    state = {
-        error: false,
-        loading: true,
-        timestamp: null,
-        coordinates: [],
-    }
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [timestamp, setTimestamp] = useState(null)
+    const [coordinates, setCoordinates] = useState([])
 
-    componentDidMount() {
-        this.queryData()
-    }
+    useEffect(() => queryData(), [route])
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.route !== this.props.route) {
-            this.queryData()
-        }
-    }
-
-    queryData = () => {
-        const { route, path } = this.props
+    const queryData = () => {
         if (!route) return
 
-        this.setState({ loading: true })
+        setLoading(true)
         const endpointPath = `${TIMESERIES_PATH}/${route}/${path}`
         request.get(endpointPath)
             .then(response => {
                 const { timestamp, value } = response.data.result
-                this.setState({
-                    coordinates: value,
-                    timestamp: formatTime(timestamp),
-                    loading: false,
-                    error: false,
-                })
+                setLoading(false)
+                setError(false)
+                setCoordinates(value)
+                setTimestamp(formatTime(timestamp))
             })
             .catch(() => {
-                this.setState({
-                    error: true,
-                })
+                setLoading(false)
+                setError(true)
             })
     }
 
-    render() {
-        const { error, loading, coordinates, timestamp } = this.state
-        const { route, title, theme } = this.props
+    if (!route) return (
+        <ChartCell className="scatter-time">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartMessage text="No route chosen" icon="empty-icon"/>
+        </ChartCell>
+    )
+    else if (error) return (
+        <ChartCell className="scatter-time">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartMessage text="Data could not be loaded" icon="error-icon"/>
+        </ChartCell>
+    )
+    else if (loading) return (
+        <ChartCell className="scatter-time">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartLoader/>
+        </ChartCell>
+    )
+    else if (!coordinates.length) return (
+        <ChartCell className="scatter-time">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartMessage text="No data points" icon="warning-icon"/>
+        </ChartCell>
+    )
 
-        if (!route) return (
-            <ChartCell className="scatter-time">
-                <ChartHeader refresh={this.queryData} title={title} theme={theme}/>
-                <ChartMessage theme={theme} text="No route chosen" icon="empty-icon"/>
-            </ChartCell>
-        )
-        else if (error) return (
-            <ChartCell className="scatter-time">
-                <ChartHeader refresh={this.queryData} title={title} theme={theme}/>
-                <ChartMessage theme={theme} text="Data could not be loaded" icon="error-icon"/>
-            </ChartCell>
-        )
-        else if (loading) return (
-            <ChartCell className="scatter-time">
-                <ChartHeader refresh={this.queryData} title={title} theme={theme}/>
-                <ChartLoader theme={theme}/>
-            </ChartCell>
-        )
-        else if (!coordinates.length) return (
-            <ChartCell className="scatter-time">
-                <ChartHeader refresh={this.queryData} title={title} theme={theme}/>
-                <ChartMessage theme={theme} text="No data points" icon="warning-icon"/>
-            </ChartCell>
-        )
-
-        return (
-            <ChartCell className="scatter-time">
-                <ChartHeader refresh={this.queryData} title={title} subtitle={route} theme={theme}/>
-                <div className="scatter-chart">
-                    <div className="scatter-chart-time">{timestamp}</div>
-                    <ScatterChart data={coordinates}/>
-                </div>
-            </ChartCell>
-        )
-    }
+    return (
+        <ChartCell className="scatter-time">
+            <ChartHeader refresh={queryData} title={title} subtitle={route}/>
+            <div className="scatter-chart">
+                <div className="scatter-chart-time">{timestamp}</div>
+                <ScatterChart data={coordinates}/>
+            </div>
+        </ChartCell>
+    )
 }
+
+export default ScatterTime

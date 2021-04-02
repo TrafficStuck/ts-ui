@@ -41,6 +41,3 @@ export const PERIOD_KEY = "period"
 
 // TIME
 export const HOUR_SECONDS = 3600
-
-// THEMES
-export const YELLOW_THEME = "yellow"

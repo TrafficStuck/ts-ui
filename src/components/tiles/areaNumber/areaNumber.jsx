@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 import ChartHeader from "@components/common/chartHeader"
 import ChartLoader from "@components/common/chartLoader"
@@ -12,85 +12,66 @@ import { TIMESERIES_PATH } from "@utils/constants"
 import { convertToHour } from "@utils/helpers"
 
 
-export default class AreaNumber extends React.Component {
+const AreaNumber = ({ route, path, title, period: delta }) => {
 
-    state = {
-        loading: false,
-        error: false,
-        timeseries: [],
-    }
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [timeseries, setTimeseries] = useState([])
 
-    componentDidMount() {
-        this.queryData(this.state.delta)
-    }
+    useEffect(() => queryData(), [route, delta])
 
-    componentDidUpdate(prevProps) {
-        const { period: prevPeriod, route: prevRoute } = prevProps
-        const { period, route } = this.props
-        if (prevPeriod !== period || prevRoute !== route) {
-            this.queryData()
-        }
-    }
-
-    queryData = () => {
-        const { route, path, period } = this.props
+    const queryData = () => {
         if (!route) return
 
-        this.setState({ loading: true })
+        setLoading(true)
         const endpointPath = `${TIMESERIES_PATH}/${route}/${path}`
         request.get(endpointPath, { delta: period })
             .then(response => {
-                this.setState({
-                    timeseries: response.data.result,
-                    loading: false,
-                    error: false,
-                })
+                setLoading(false)
+                setError(false)
+                setTimeseries(response.data.result)
             })
             .catch(() => {
-                this.setState({
-                    error: true,
-                })
+                setLoading(false)
+                setError(true)
             })
     }
 
-    render() {
-        const { error, loading, timeseries } = this.state
-        const { route, title, theme, period: delta } = this.props
+    if (!route) return (
+        <ChartCell className="area-number">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartMessage text="No route chosen" icon="empty-icon"/>
+        </ChartCell>
+    )
+    else if (error) return (
+        <ChartCell className="area-number">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartMessage text="Data could not be loaded" icon="error-icon"/>
+        </ChartCell>
+    )
+    else if (loading) return (
+        <ChartCell className="area-number">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartLoader />
+        </ChartCell>
+    )
+    else if (!timeseries.length) return (
+        <ChartCell className="area-number">
+            <ChartHeader refresh={queryData} title={title}/>
+            <ChartMessage text="No data points" icon="warning-icon"/>
+        </ChartCell>
+    )
 
-        if (!route) return (
-            <ChartCell className="area-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title}/>
-                <ChartMessage theme={theme} text="No route chosen" icon="empty-icon"/>
-            </ChartCell>
-        )
-        else if (error) return (
-            <ChartCell className="area-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title}/>
-                <ChartMessage theme={theme} text="Data could not be loaded" icon="error-icon"/>
-            </ChartCell>
-        )
-        else if (loading) return (
-            <ChartCell className="area-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title}/>
-                <ChartLoader theme={theme} />
-            </ChartCell>
-        )
-        else if (!timeseries.length) return (
-            <ChartCell className="area-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title}/>
-                <ChartMessage theme={theme} text="No data points" icon="warning-icon"/>
-            </ChartCell>
-        )
+    const lastValue = timeseries[timeseries.length - 1].value.toFixed(2)
+    const period = convertToHour(delta)
 
-        const lastValue = timeseries[timeseries.length - 1].value.toFixed(2)
-        const period = convertToHour(delta)
-
-        return (
-            <ChartCell className="area-number">
-                <ChartHeader theme={theme} refresh={this.queryData} title={title} subtitle={route}/>
-                <ChartInfo theme={theme} main={lastValue} sub={`Period: ${period}h`}/>
-                <AreaChart data={timeseries}/>
-            </ChartCell>
-        )
-    }
+    return (
+        <ChartCell className="area-number">
+            <ChartHeader refresh={queryData} title={title} subtitle={route}/>
+            <ChartInfo main={lastValue} sub={`Period: ${period}h`}/>
+            <AreaChart data={timeseries}/>
+        </ChartCell>
+    )
 }
+
+export default AreaNumber
