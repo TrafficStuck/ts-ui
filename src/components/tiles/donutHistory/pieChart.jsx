@@ -33,13 +33,6 @@ const PieChart = ({ data }) => {
             width={CHART_WIDTH}
             height={CHART_PIE_HEIGHT}
         >
-            <defs>
-                <radialGradient id="pie-radial-gradient">
-                    <stop offset="25%" stopColor={YELLOW_COLOR}/>
-                    <stop offset="100%" stopColor={RED_YELLOW_GRADIENT[colorIndex]}/>
-                </radialGradient>
-            </defs>
-
             <Pie
                 data={formatPie(data)}
                 dataKey="value"
@@ -51,8 +44,8 @@ const PieChart = ({ data }) => {
                 animationBegin={0}
                 animationDuration={CHART_ANIMATION}
             >
-                <Cell key={`cell-${1}`} fill="url(#pie-radial-gradient)" opacity={0.1}/>
-                <Cell key={`cell-${2}`} fill="url(#pie-radial-gradient)"/>
+                <Cell key={`cell-${1}`} fill={YELLOW_COLOR} opacity={0.1}/>
+                <Cell key={`cell-${2}`} fill={RED_YELLOW_GRADIENT[colorIndex]}/>
             </Pie>
         </PieContainer>
     )

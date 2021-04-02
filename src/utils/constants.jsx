@@ -9,20 +9,20 @@ export const YELLOW_COLOR = "#EBC673"
 export const BLACK_COLOR = "#1A1A1A"
 export const BLACK_LIGHT_COLOR = "#282828"
 export const GREY_COLOR = "#C6C6C6"
-export const GREY_DARK_COLOR = "#8d8c8c"
+export const GREY_DARK_COLOR = "#8D8C8C"
 export const WHITE_COLOR = "#FFFFFF"
-export const RED_COLOR = "#EC5353"
+export const RED_COLOR = "#EC7553"
 export const RED_YELLOW_GRADIENT = [
     "#EBC673",
-    "#EBB96F",
-    "#EBAC6B",
-    "#EB9F68",
-    "#EB9264",
-    "#EB8661",
-    "#EB795D",
-    "#EB6C5A",
-    "#EB5F56",
-    "#EC5353",
+    "#ECBE6C",
+    "#EDB566",
+    "#EDAC60",
+    "#EEA45C",
+    "#EE9B58",
+    "#EE9256",
+    "#EE8854",
+    "#ED7F53",
+    "#EC7553",
 ]
 
 // CHART STUFF
