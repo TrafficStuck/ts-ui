@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import SearchDialog from "@components/search/search"
 import ChartsContainer from "@components/common/chartsContainer"
@@ -6,74 +6,60 @@ import AreaNumber from "@components/tiles/areaNumber/areaNumber"
 import ScatterTime from "@components/tiles/scatterTime/scatterTime"
 
 import Icon from "@icons/icon"
-import { BIG_ICON_SIZE, ROUTE_KEY, PERIOD_KEY, HOUR_SECONDS, YELLOW_THEME as theme } from "@utils/constants"
+import { BIG_ICON_SIZE, ROUTE_KEY, PERIOD_KEY, HOUR_SECONDS } from "@utils/constants"
 
 
-export default class TrafficPage extends React.PureComponent {
+const TrafficPage = () => {
 
-    state = {
-        searchOpened: false,
-        route: localStorage.getItem(ROUTE_KEY),
-        period: localStorage.getItem(PERIOD_KEY) || 1,
+    const [searchOpen, setSearchOpen] = useState(false)
+    const [route, setRoute] = useState(localStorage.getItem(ROUTE_KEY))
+    const [period, setPeriod] = useState(localStorage.getItem(PERIOD_KEY) || 1)
+
+    const submit = (route, period) => {
+        setRoute(route)
+        setPeriod(period)
+        setSearchOpen(false)
     }
 
-    toggleSearch = () => {
-        this.setState({ searchOpened: !this.state.searchOpened })
-    }
-
-    submit = (route, period) => {
-        this.setState({
-            route,
-            period,
-            searchOpened: false,
-        })
-    };
-
-    render() {
-        const { route, period, searchOpened } = this.state
-
-        const periodSeconds = parseInt(period) * HOUR_SECONDS
-        return (
-            <div id="traffic-page">
-                <ChartsContainer>
-                    <AreaNumber
-                        theme={theme}
-                        period={periodSeconds}
-                        route={route}
-                        path="trips_count"
-                        title="trips count"
-                    />
-                    <AreaNumber
-                        theme={theme}
-                        period={periodSeconds}
-                        route={route}
-                        path="avg_speed"
-                        title="avg speed"
-                    />
-                    <AreaNumber
-                        theme={theme}
-                        period={periodSeconds}
-                        route={route}
-                        path="avg_distance"
-                        title="avg distance"
-                    />
-                    <ScatterTime
-                        theme={theme}
-                        period={periodSeconds}
-                        route={route}
-                        path="coordinates"
-                        title="coordinates"
-                    />
-                </ChartsContainer>
-                <div className="search-button" onClick={this.toggleSearch}>
-                    <Icon name="search-icon" className="search-icon" size={BIG_ICON_SIZE}/>
-                </div>
-                <SearchDialog
-                    open={searchOpened}
-                    close={this.toggleSearch}
-                    submit={this.submit}
+    const periodSeconds = parseInt(period) * HOUR_SECONDS
+    return (
+        <div id="traffic-page">
+            <ChartsContainer>
+                <AreaNumber
+                    period={periodSeconds}
+                    route={route}
+                    path="trips_count"
+                    title="trips count"
                 />
+                <AreaNumber
+                    period={periodSeconds}
+                    route={route}
+                    path="avg_speed"
+                    title="avg speed"
+                />
+                <AreaNumber
+                    period={periodSeconds}
+                    route={route}
+                    path="avg_distance"
+                    title="avg distance"
+                />
+                <ScatterTime
+                    period={periodSeconds}
+                    route={route}
+                    path="coordinates"
+                    title="coordinates"
+                />
+            </ChartsContainer>
+            <div className="search-button" onClick={() => setSearchOpen(true)}>
+                <Icon name="search-icon" className="search-icon" size={BIG_ICON_SIZE}/>
             </div>
-        )
-    }
+            <SearchDialog
+                open={searchOpen}
+                close={() => setSearchOpen(false)}
+                submit={submit}
+            />
+        </div>
+    )
 }
+
+export default TrafficPage

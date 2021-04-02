@@ -4,37 +4,30 @@ import ChartsContainer from "@components/common/chartsContainer"
 import BarNumber from "@components/tiles/barNumber/barNumber"
 import DonutNumber from "@components/tiles/donutNumber/donutNumber"
 
-import { YELLOW_THEME as theme } from "@utils/constants"
 
-
-export default class TransportPage extends React.PureComponent {
-
-    render() {
-        return (
-            <div id="transport-page">
-                <ChartsContainer>
-                    <DonutNumber
-                        theme={theme}
-                        title="transport per type"
-                        path="transport_per_type"
-                    />
-                    <BarNumber
-                        theme={theme}
-                        title="stops per routes"
-                        path="stops_per_routes"
-                    />
-                    <DonutNumber
-                        theme={theme}
-                        title="transport per agencies"
-                        path="transport_per_agencies"
-                    />
-                    <BarNumber
-                        theme={theme}
-                        title="transport per routes"
-                        path="transport_per_routes"
-                    />
-                </ChartsContainer>
-            </div>
-        )
-    }
+const TransportPage = () => {
+    return (
+        <div id="transport-page">
+            <ChartsContainer>
+                <DonutNumber
+                    title="transport per type"
+                    path="transport_per_type"
+                />
+                <BarNumber
+                    title="stops per routes"
+                    path="stops_per_routes"
+                />
+                <DonutNumber
+                    title="transport per agencies"
+                    path="transport_per_agencies"
+                />
+                <BarNumber
+                    title="transport per routes"
+                    path="transport_per_routes"
+                />
+            </ChartsContainer>
+        </div>
+    )
 }
+
+export default TransportPage

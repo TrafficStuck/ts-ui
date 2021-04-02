@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 import Dialog from "@material-ui/core/Dialog"
 import DialogContent from "@material-ui/core/DialogContent"
@@ -11,73 +11,49 @@ import request from "@utils/request"
 import "./search.sass"
 
 
-export default class SearchDialog extends React.Component {
+const SearchDialog = ({ submit, open, close }) => {
+    const [currentRoute, setCurrentRoute] = useState(localStorage.getItem(ROUTE_KEY))
+    const [period, setPeriod] = useState(localStorage.getItem(PERIOD_KEY) || 1)
+    const [data, setData] = useState([])
 
-    state = {
-        loading: false,
-        error: false,
-        currentRoute: localStorage.getItem(ROUTE_KEY),
-        period: localStorage.getItem(PERIOD_KEY) || 1,
-        data: [],
-    }
+    const setRouteName = (currentRoute) => {
+        setCurrentRoute(currentRoute)
 
-    setRouteName = (currentRoute) => {
-        const { period } = this.state
-
-        this.setState({ currentRoute })
         localStorage.setItem(ROUTE_KEY, currentRoute)
         localStorage.setItem(PERIOD_KEY, period)
 
-        this.props.submit(currentRoute, period)
-    };
-
-    setPeriod = (event, period) => {
-        this.setState({ period })
-    };
-
-    componentDidMount() {
-        this.queryData()
+        submit(currentRoute, period)
     }
 
-    queryData = () => {
-        this.setState({ loading: true })
+    useEffect(() => queryData(), [])
+
+    const queryData = () => {
         const endpointPath = `${TIMESERIES_PATH}/routes`
         request.get(endpointPath)
             .then(response => {
-                this.setState({
-                    data: response.data.result,
-                    loading: false,
-                    error: false,
-                })
-            })
-            .catch(() => {
-                this.setState({
-                    error: true,
-                })
+                setData(response.data.result)
             })
     }
 
-    render() {
-        const { open, close } = this.props
-        const { data, currentRoute, period } = this.state
-        if (!data.length) return (
-            <Dialog open={open} onClose={close}>
-                <DialogContent className="search-dialog">
-                    <SearchError />
-                </DialogContent>
-            </Dialog>
-        )
-        return (
-            <Dialog open={open} onClose={close}>
-                <DialogContent className="search-dialog">
-                    <SearchPeriod period={period} setPeriod={this.setPeriod}/>
-                    <SearchTransport
-                        transports={data}
-                        currentRoute={currentRoute}
-                        setRouteName={this.setRouteName}
-                    />
-                </DialogContent>
-            </Dialog>
-        )
-    }
+    if (!data.length) return (
+        <Dialog open={open} onClose={close}>
+            <DialogContent className="search-dialog">
+                <SearchError />
+            </DialogContent>
+        </Dialog>
+    )
+    return (
+        <Dialog open={open} onClose={close}>
+            <DialogContent className="search-dialog">
+                <SearchPeriod period={period} setPeriod={setPeriod}/>
+                <SearchTransport
+                    transports={data}
+                    currentRoute={currentRoute}
+                    setRouteName={setRouteName}
+                />
+            </DialogContent>
+        </Dialog>
+    )
 }
+
+export default SearchDialog

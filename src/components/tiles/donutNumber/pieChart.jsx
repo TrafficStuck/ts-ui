@@ -10,9 +10,9 @@ const CHART_PIE_PADDING = 2.5
 const CHART_PIE_HEIGHT = CHART_HEIGHT + 75
 
 
-export default class PieChart extends React.PureComponent {
+const PieChart = ({ data, activeIndex, changeActive }) => {
 
-    renderPie = (data, inner, outer, active, changeActive) => {
+    const renderPie = (data, inner, outer, active, changeActive) => {
         return (
             <Pie
                 data={data}
@@ -38,28 +38,25 @@ export default class PieChart extends React.PureComponent {
         )
     }
 
-    render() {
-        const { data, activeIndex, changeActive } = this.props
-
-
-        return (
-            <PieContainer
-                width={CHART_WIDTH}
-                height={CHART_PIE_HEIGHT}
-            >
-                <defs>
-                    <radialGradient id="pie-cell" gradientUnits="userSpaceOnUse">
-                        <stop offset="25%" stopColor={YELLOW_COLOR} stopOpacity={0.0} />
-                        <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={1} />
-                    </radialGradient>
-                    <radialGradient id="pie-cell-active" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stopColor={YELLOW_COLOR} stopOpacity={0.5} />
-                        <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={1} />
-                    </radialGradient>
-                </defs>
-                {this.renderPie(data, 70, 80, activeIndex, changeActive)}
-                {this.renderPie(data, 87, 120, activeIndex, changeActive)}
-            </PieContainer>
-        )
-    }
+    return (
+        <PieContainer
+            width={CHART_WIDTH}
+            height={CHART_PIE_HEIGHT}
+        >
+            <defs>
+                <radialGradient id="pie-cell" gradientUnits="userSpaceOnUse">
+                    <stop offset="25%" stopColor={YELLOW_COLOR} stopOpacity={0.0} />
+                    <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={1} />
+                </radialGradient>
+                <radialGradient id="pie-cell-active" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor={YELLOW_COLOR} stopOpacity={0.5} />
+                    <stop offset="100%" stopColor={YELLOW_COLOR} stopOpacity={1} />
+                </radialGradient>
+            </defs>
+            {renderPie(data, 70, 80, activeIndex, changeActive)}
+            {renderPie(data, 87, 120, activeIndex, changeActive)}
+        </PieContainer>
+    )
 }
+
+export default PieChart
