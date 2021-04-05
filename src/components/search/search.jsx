@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent"
 import SearchPeriod from "@components/search/searchPeriod"
 import SearchTransport from "@components/search/searchTransport"
 import SearchError from "@components/search/searchError"
+import Icon from "@icons/icon"
 import { TIMESERIES_PATH, ROUTE_KEY, PERIOD_KEY } from "@utils/constants"
 import request from "@utils/request"
 import "./search.sass"
@@ -16,13 +17,13 @@ const SearchDialog = ({ submit, open, close }) => {
     const [period, setPeriod] = useState(localStorage.getItem(PERIOD_KEY) || 1)
     const [data, setData] = useState([])
 
-    const setRouteName = (currentRoute) => {
-        setCurrentRoute(currentRoute)
+    const setRouteName = (route) => {
+        setCurrentRoute(route)
 
-        localStorage.setItem(ROUTE_KEY, currentRoute)
+        localStorage.setItem(ROUTE_KEY, route)
         localStorage.setItem(PERIOD_KEY, period)
 
-        submit(currentRoute, period)
+        submit(route, period)
     }
 
     useEffect(() => queryData(), [])
@@ -38,6 +39,9 @@ const SearchDialog = ({ submit, open, close }) => {
     if (!data.length) return (
         <Dialog open={open} onClose={close}>
             <DialogContent className="search-dialog">
+                <div onClick={close}>
+                    <Icon name="close-icon" className="close-icon"/>
+                </div>
                 <SearchError />
             </DialogContent>
         </Dialog>
@@ -46,6 +50,9 @@ const SearchDialog = ({ submit, open, close }) => {
         <Dialog open={open} onClose={close}>
             <DialogContent className="search-dialog">
                 <SearchPeriod period={period} setPeriod={setPeriod}/>
+                <div onClick={() => submit(currentRoute, period)}>
+                    <Icon name="close-icon" className="close-icon"/>
+                </div>
                 <SearchTransport
                     transports={data}
                     currentRoute={currentRoute}

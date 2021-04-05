@@ -25,7 +25,7 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
         setLoading(true)
         const endpointPath = `${TIMESERIES_PATH}/${route}/${path}`
-        request.get(endpointPath, { delta: period })
+        request.get(endpointPath, { delta })
             .then(response => {
                 setLoading(false)
                 setError(false)
