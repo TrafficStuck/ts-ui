@@ -6,7 +6,8 @@ import DialogContent from "@material-ui/core/DialogContent"
 import SearchPeriod from "@components/search/searchPeriod"
 import SearchTransport from "@components/search/searchTransport"
 import SearchError from "@components/search/searchError"
-import { TIMESERIES_PATH, ROUTE_KEY, PERIOD_KEY } from "@utils/constants"
+import Icon from "@icons/icon"
+import { TIMESERIES_PATH, ROUTE_KEY, PERIOD_KEY, BIG_ICON_SIZE } from "@utils/constants"
 import request from "@utils/request"
 import "./search.sass"
 
@@ -38,6 +39,9 @@ const SearchDialog = ({ submit, open, close }) => {
     if (!data.length) return (
         <Dialog open={open} onClose={close}>
             <DialogContent className="search-dialog">
+                <div onClick={close}>
+                    <Icon name="close-icon" className="close-icon"/>
+                </div>
                 <SearchError />
             </DialogContent>
         </Dialog>
@@ -46,6 +50,9 @@ const SearchDialog = ({ submit, open, close }) => {
         <Dialog open={open} onClose={close}>
             <DialogContent className="search-dialog">
                 <SearchPeriod period={period} setPeriod={setPeriod}/>
+                <div onClick={close}>
+                    <Icon name="close-icon" className="close-icon"/>
+                </div>
                 <SearchTransport
                     transports={data}
                     currentRoute={currentRoute}

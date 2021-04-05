@@ -43,6 +43,16 @@ const EmptyIcon = (
     </g>
 )
 
+const CloseIcon = (
+    <g fillRule="evenodd">
+        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2.00599" y1="20.7123" x2="20.6069" y2="2.11142" stroke="#EBC673" stroke-width="3"/>
+            <line x1="2.06066" y1="1.93934" x2="20.6615" y2="20.5402" stroke="#EBC673" stroke-width="3"/>
+        </svg>
+    </g>
+
+)
+
 
 export default {
     "regions-icon": RegionsIcon,
@@ -52,4 +62,5 @@ export default {
     "error-icon": ErrorIcon,
     "warning-icon": WarningIcon,
     "empty-icon": EmptyIcon,
+    "close-icon": CloseIcon,
 }
