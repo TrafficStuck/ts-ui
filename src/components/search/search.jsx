@@ -7,7 +7,7 @@ import SearchPeriod from "@components/search/searchPeriod"
 import SearchTransport from "@components/search/searchTransport"
 import SearchError from "@components/search/searchError"
 import Icon from "@icons/icon"
-import { TIMESERIES_PATH, ROUTE_KEY, PERIOD_KEY, BIG_ICON_SIZE } from "@utils/constants"
+import { TIMESERIES_PATH, ROUTE_KEY, PERIOD_KEY } from "@utils/constants"
 import request from "@utils/request"
 import "./search.sass"
 
