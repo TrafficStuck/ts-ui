@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import ChartsContainer from "@components/common/chartsContainer"
 import BarNumber from "@components/tiles/barNumber/barNumber"
@@ -6,6 +6,10 @@ import DonutNumber from "@components/tiles/donutNumber/donutNumber"
 
 
 const TransportPage = () => {
+    useEffect(() => {
+        document.title = "traffic stuck: transport"
+    })
+
     return (
         <div id="transport-page">
             <ChartsContainer>
