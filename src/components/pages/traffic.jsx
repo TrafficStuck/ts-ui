@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import SearchDialog from "@components/search/search"
 import ChartsContainer from "@components/common/chartsContainer"
@@ -14,6 +14,10 @@ const TrafficPage = () => {
     const [searchOpen, setSearchOpen] = useState(false)
     const [route, setRoute] = useState(localStorage.getItem(ROUTE_KEY))
     const [period, setPeriod] = useState(localStorage.getItem(PERIOD_KEY) || 1)
+
+    useEffect(() => {
+        document.title = "traffic stuck: traffic"
+    })
 
     const submit = (route, period) => {
         setRoute(route)
