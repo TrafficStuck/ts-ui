@@ -8,7 +8,7 @@ const RegionsPage = () => {
     useEffect(() => {
         document.title = "traffic stuck: regions"
     })
-    
+
     return (
         <div id="regions-page">
             <ChartsContainer>
