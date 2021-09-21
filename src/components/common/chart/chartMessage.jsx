@@ -3,7 +3,7 @@ import React from "react"
 import Icon from "@icons/icon"
 import { BIG_ICON_SIZE } from "@utils/constants"
 
-import "./common.sass"
+import "./chart.sass"
 
 
 const ChartMessage = ({ icon, text }) => {

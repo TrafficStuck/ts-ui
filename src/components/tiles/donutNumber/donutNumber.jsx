@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 
-import ChartHeader from "@components/common/chartHeader"
-import ChartLoader from "@components/common/chartLoader"
-import ChartMessage from "@components/common/chartMessage"
-import ChartInfo from "@components/common/chartInfo"
-import ChartCell from "@components/common/chartCell"
+import ChartHeader from "@components/common/chart/chartHeader"
+import ChartInfo from "@components/common/chart/chartInfo"
+import ChartCell from "@components/common/chart/chartCell"
 import PieChart from "@components/tiles/donutNumber/pieChart"
+import ChartMessage from "@components/common/chart/chartMessage"
+import Loader from "@components/common/loader/Loader"
 
 import request from "@utils/request"
 import { STATIC_PATH } from "@utils/constants"
@@ -47,7 +47,7 @@ const DonutNumber = ({ path, title }) => {
     else if (loading) return (
         <ChartCell className="donut-number">
             <ChartHeader refresh={queryData} title={title} />
-            <ChartLoader/>
+            <Loader/>
         </ChartCell>
     )
     else if (!data.length) return (

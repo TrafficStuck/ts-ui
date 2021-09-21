@@ -8,6 +8,7 @@
     "babel-eslint": "^10.1.0",
     "express": "^4.17.1",
     "react": "^16.13.1",
+    "react-debounce-input": "^3.2.5",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "recharts": "^1.8.5"

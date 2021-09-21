@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 
-import ChartHeader from "@components/common/chartHeader"
-import ChartLoader from "@components/common/chartLoader"
-import ChartMessage from "@components/common/chartMessage"
-import ChartCell from "@components/common/chartCell"
-import ChartInfo from "@components/common/chartInfo"
+import ChartHeader from "@components/common/chart/chartHeader"
+import ChartMessage from "@components/common/chart/chartMessage"
+import ChartCell from "@components/common/chart/chartCell"
+import ChartInfo from "@components/common/chart/chartInfo"
 import BarChart from "@components/tiles/barNumber/barChart"
+import Loader from "@components/common/loader/Loader"
 
 import request from "@utils/request"
 import { STATIC_PATH } from "@utils/constants"
@@ -47,7 +47,7 @@ const BarNumber = ({ path, title }) => {
     else if (loading) return (
         <ChartCell className="bar-number">
             <ChartHeader refresh={queryData} title={title} />
-            <ChartLoader/>
+            <Loader/>
         </ChartCell>
     )
     else if (!data.length) return (

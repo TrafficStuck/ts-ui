@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 
 import SearchDialog from "@components/search/search"
-import ChartsContainer from "@components/common/chartsContainer"
+import ChartsContainer from "@components/common/chart/chartsContainer"
 import AreaNumber from "@components/tiles/areaNumber/areaNumber"
 import ScatterTime from "@components/tiles/scatterTime/scatterTime"
 
