@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 
-import ChartCell from "@components/common/chartCell"
-import ChartHeader from "@components/common/chartHeader"
-import ChartMessage from "@components/common/chartMessage"
-import ChartLoader from "@components/common/chartLoader"
+import ChartCell from "@components/common/chart/chartCell"
+import ChartHeader from "@components/common/chart/chartHeader"
+import ChartMessage from "@components/common/chart/chartMessage"
 import ScatterChart from "@components/tiles/scatterTime/scatterChart"
+import Loader from "@components/common/loader/Loader"
 
 import request from "@utils/request"
 import { TIMESERIES_PATH } from "@utils/constants"
@@ -56,7 +56,7 @@ const ScatterTime = ({ route, path, title }) => {
     else if (loading) return (
         <ChartCell className="scatter-time">
             <ChartHeader refresh={queryData} title={title}/>
-            <ChartLoader/>
+            <Loader/>
         </ChartCell>
     )
     else if (!coordinates.length) return (

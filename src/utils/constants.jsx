@@ -3,6 +3,8 @@ import React from "react"
 
 // ICONS
 export const BIG_ICON_SIZE = 54
+export const NORMAL_ICON_SIZE = 24
+export const DEFAULT_ICON_VIEWBOX = "0 0 24 24"
 
 // COLORS
 export const YELLOW_COLOR = "#EBC673"
@@ -34,6 +36,8 @@ export const CHART_ANIMATION = 1500
 export const TIMESERIES_PATH = "/traffic"
 export const CONGESTION_PATH = "/traffic/congestion"
 export const STATIC_PATH = "/static"
+export const STOPS_PATH = "/stops"
+export const STOPS_NEAREST_PATH = "/stops/nearest"
 
 // LOCAL STORAGE
 export const ROUTE_KEY = "route"
@@ -41,3 +45,8 @@ export const PERIOD_KEY = "period"
 
 // TIME
 export const HOUR_SECONDS = 3600
+
+// GOOGLE MAP
+export const GOOGLE_MAP_DIRECTION_URL = "https://www.google.com/maps/dir/"
+export const GOOGLE_MAP_WALKING_TRAVEL_MODE = "walking"
+export const GOOGLE_MAP_API_VERSION = 1

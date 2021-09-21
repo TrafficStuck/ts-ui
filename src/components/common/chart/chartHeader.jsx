@@ -1,6 +1,6 @@
 import React from "react"
 
-import "./common.sass"
+import "./chart.sass"
 
 
 const ChartHeader = ({ title, subtitle, refresh }) => {

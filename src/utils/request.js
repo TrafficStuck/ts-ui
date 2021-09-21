@@ -1,7 +1,7 @@
 import axios from "axios"
 
-// TODO: process env
-const host = "https://traffic-stuck-api.herokuapp.com"
+// const host = "https://traffic-stuck-api.herokuapp.com"
+const host = "http://localhost:5555"
 const apiVersion = "/api/v1/"
 
 

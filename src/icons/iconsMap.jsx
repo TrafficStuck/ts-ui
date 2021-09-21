@@ -1,9 +1,15 @@
 import React from "react"
 
 
-const RegionsIcon = (
+const DistrictsIcon = (
     <g fillRule="evenodd">
         <path d="M15 11V5l-3-3-3 3v2H3v14h18V11h-6zm-8 8H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm6 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm6 12h-2v-2h2v2zm0-4h-2v-2h2v2z" />
+    </g>
+)
+
+const GeneralIcon = (
+    <g fillRule="evenodd">
+        <path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/>
     </g>
 )
 
@@ -45,17 +51,42 @@ const EmptyIcon = (
 
 const CloseIcon = (
     <g fillRule="evenodd">
-        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="2.00599" y1="20.7123" x2="20.6069" y2="2.11142" stroke="#EBC673" strokeWidth="3"/>
-            <line x1="2.06066" y1="1.93934" x2="20.6615" y2="20.5402" stroke="#EBC673" strokeWidth="3"/>
-        </svg>
+        <line x1="2.00599" y1="20.7123" x2="20.6069" y2="2.11142" stroke="#EBC673" strokeWidth="3"/>
+        <line x1="2.06066" y1="1.93934" x2="20.6615" y2="20.5402" stroke="#EBC673" strokeWidth="3"/>
     </g>
 
 )
 
+const LocationIcon = (
+    <g fillRule="evenodd">
+        <path d="M7.62645 20.5763C1.19398 11.9368 0 11.0501 0 7.875C0 3.52574 3.80556 0 8.5 0C13.1944 0 17 3.52574 17 7.875C17 11.0501 15.806 11.9368 9.37355 20.5763C8.95143 21.1413 8.04853 21.1412 7.62645 20.5763ZM8.5 11.1562C10.456 11.1562 12.0417 9.68719 12.0417 7.875C12.0417 6.06281 10.456 4.59375 8.5 4.59375C6.54398 4.59375 4.95833 6.06281 4.95833 7.875C4.95833 9.68719 6.54398 11.1562 8.5 11.1562Z" fill="#C6C6C6"/>
+    </g>
+)
+
+const TramwayIcon = (
+    <g fillRule="evenodd">
+        <path d="M19 16.94V8.5c0-2.79-2.61-3.4-6.01-3.49l.76-1.51H17V2H7v1.5h4.75l-.76 1.52C7.86 5.11 5 5.73 5 8.5v8.44c0 1.45 1.19 2.66 2.59 2.97L6 21.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 20h-.08c1.69 0 2.58-1.37 2.58-3.06zm-7 1.56c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5-4.5H7V9h10v5z" fill="#C6C6C6"/>
+    </g>
+)
+
+const TrolleybusIcon = (
+    <g fillRule="evenodd">
+        <path d="M20.9688 13H20.625V10.75C20.625 8.65 16.3625 7 11 7C5.6375 7 1.375 8.65 1.375 10.75V13H1.03125C0.461914 13 0 13.5034 0 14.125V17.875C0 18.4961 0.461914 19 1.03125 19H1.375V26.5C1.375 27.3283 1.99074 28 2.75 28V29.5C2.75 30.3283 3.36574 31 4.125 31H5.5C6.25926 31 6.875 30.3283 6.875 29.5V28H15.125V29.5C15.125 30.3283 15.7407 31 16.5 31H17.875C18.6343 31 19.25 30.3283 19.25 29.5V28H19.525C20.2125 28 20.625 27.4 20.625 26.8V19H20.9688C21.5381 19 22 18.4961 22 17.875V14.125C22 13.5034 21.5381 13 20.9688 13ZM4.8125 25.75C4.05324 25.75 3.4375 25.0783 3.4375 24.25C3.4375 23.4217 4.05324 22.75 4.8125 22.75C5.57176 22.75 6.1875 23.4217 6.1875 24.25C6.1875 25.0783 5.57176 25.75 4.8125 25.75ZM5.5 20.5C4.74074 20.5 4.125 19.8283 4.125 19V13C4.125 12.1717 4.74074 11.5 5.5 11.5H16.5C17.2593 11.5 17.875 12.1717 17.875 13V19C17.875 19.8283 17.2593 20.5 16.5 20.5H5.5ZM17.1875 25.75C16.4282 25.75 15.8125 25.0783 15.8125 24.25C15.8125 23.4217 16.4282 22.75 17.1875 22.75C17.9468 22.75 18.5625 23.4217 18.5625 24.25C18.5625 25.0783 17.9468 25.75 17.1875 25.75Z" fill="#C6C6C6"/>
+        <path d="M13.5 8.5L18 1" stroke="#C6C6C6" stroke-width="2"/>
+        <path d="M8.5 8.5L4 1" stroke="#C6C6C6" stroke-width="2"/>
+    </g>
+)
+
+const MapIcon = (
+    <g fillRule="evenodd">
+        <path d="m20.5 3-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+    </g>
+)
+
 
 export default {
-    "regions-icon": RegionsIcon,
+    "districts-icon": DistrictsIcon,
+    "general-icon": GeneralIcon,
     "transport-icon": TransportIcon,
     "traffic-icon": TrafficIcon,
     "search-icon": SearchIcon,
@@ -63,4 +94,8 @@ export default {
     "warning-icon": WarningIcon,
     "empty-icon": EmptyIcon,
     "close-icon": CloseIcon,
+    "location-icon": LocationIcon,
+    "tramway-icon": TramwayIcon,
+    "trolleybus-icon": TrolleybusIcon,
+    "map-icon": MapIcon,
 }

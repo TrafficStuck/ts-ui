@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
 
-import ChartHeader from "@components/common/chartHeader"
-import ChartLoader from "@components/common/chartLoader"
-import ChartMessage from "@components/common/chartMessage"
-import ChartInfo from "@components/common/chartInfo"
-import ChartCell from "@components/common/chartCell"
+import ChartHeader from "@components/common/chart/chartHeader"
+import ChartMessage from "@components/common/chart/chartMessage"
+import ChartInfo from "@components/common/chart/chartInfo"
+import ChartCell from "@components/common/chart/chartCell"
 import PieChart from "@components/tiles/donutHistory/pieChart"
 import BarChart from "@components/tiles/donutHistory/barChart"
+import Loader from "@components/common/loader/Loader"
 
 import request from "@utils/request"
 import { CONGESTION_PATH } from "@utils/constants"
@@ -51,7 +51,7 @@ const DonutHistory = ({ title }) => {
     else if (loading) return (
         <ChartCell className="donut-history">
             <ChartHeader refresh={queryData} title={title} />
-            <ChartLoader/>
+            <Loader/>
         </ChartCell>
     )
     else if (!data.length) return (

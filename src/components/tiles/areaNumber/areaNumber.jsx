@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 
-import ChartHeader from "@components/common/chartHeader"
-import ChartLoader from "@components/common/chartLoader"
-import ChartMessage from "@components/common/chartMessage"
-import ChartCell from "@components/common/chartCell"
-import ChartInfo from "@components/common/chartInfo"
+import ChartHeader from "@components/common/chart/chartHeader"
+import ChartMessage from "@components/common/chart/chartMessage"
+import ChartCell from "@components/common/chart/chartCell"
+import ChartInfo from "@components/common/chart/chartInfo"
 import AreaChart from "@components/tiles/areaNumber/areaChart"
+import Loader from "@components/common/loader/Loader"
 
 import request from "@utils/request"
 import { TIMESERIES_PATH } from "@utils/constants"
@@ -52,7 +52,7 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
     else if (loading) return (
         <ChartCell className="area-number">
             <ChartHeader refresh={queryData} title={title}/>
-            <ChartLoader />
+            <Loader />
         </ChartCell>
     )
     else if (!timeseries.length) return (
