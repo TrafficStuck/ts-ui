@@ -1,5 +1,5 @@
 # Traffic Stuck 
-[![Build Status](https://travis-ci.org/TrafficStuck/ts-ui.svg?branch=master)](https://travis-ci.org/TrafficStuck/ts-ui)
+[![Build Status](https://app.travis-ci.com/TrafficStuck/ts-ui.svg?branch=master)](https://app.travis-ci.com/TrafficStuck/ts-ui)
 
 Visualization of Lviv traffic information.
 

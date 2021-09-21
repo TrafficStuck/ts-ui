@@ -7,6 +7,7 @@ import ChartCell from "@components/common/chart/chartCell"
 import PieChart from "@components/tiles/donutHistory/pieChart"
 import BarChart from "@components/tiles/donutHistory/barChart"
 import Loader from "@components/common/loader/Loader"
+import ChartHelp from "@components/common/chart/chartHelp"
 
 import request from "@utils/request"
 import { CONGESTION_PATH } from "@utils/constants"
@@ -19,6 +20,7 @@ const CHART_LIMIT_ITEMS = 18
 
 const DonutHistory = ({ title }) => {
 
+    const [openHelp, setOpenHelp] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [data, setData] = useState([])
@@ -44,20 +46,23 @@ const DonutHistory = ({ title }) => {
 
     if (error) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <Loader/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (!data.length) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <ChartMessage text="No data points" icon="warning-icon"/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 
@@ -65,7 +70,7 @@ const DonutHistory = ({ title }) => {
     const lastItemPercentage = `${Math.round(lastItem.value)}%`
     return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <div className="pie-chart">
                 <ChartInfo main={lastItemPercentage} />
                 <PieChart data={lastItem} />
@@ -73,6 +78,7 @@ const DonutHistory = ({ title }) => {
             <div className="bar-chart">
                 <BarChart data={data} />
             </div>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 }

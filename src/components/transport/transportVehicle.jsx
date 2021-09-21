@@ -15,21 +15,21 @@ const VEHICLE_ICONS = {
 
 
 const TransportVehicle = ({ vehicle }) => {
-    const arrival_time = vehicle["arrival_time"].slice(0, 5)
-    const vehicle_type = vehicle["route_long_name"].replace(/[0-9]/g, "")
-    const vehicle_icon = VEHICLE_ICONS[vehicle_type] || VEHICLE_ICONS["transport-icon"]
+    const arrivalTime = vehicle["arrival_time"].slice(0, 5)
+    const vehicleType = vehicle["route_short_name"].replace(/[0-9]/g, "")
+    const vehicleIcon = VEHICLE_ICONS[vehicleType] || VEHICLE_ICONS["transport-icon"]
 
     return (
         <TransportItem loading={false}>
             <div className="transport-vehicle-type-icon">
-                {vehicle_icon}
+                {vehicleIcon}
             </div>
             <div className="transport-vehicle-line"/>
             <div className="transport-vehicle">
                 <div className="transport-vehicle-name">{vehicle["route_short_name"]}</div>
                 <div className="transport-vehicle-route">{vehicle["route_long_name"]}</div>
             </div>
-            <div className="transport-vehicle-arrival-time">{arrival_time}</div>
+            <div className="transport-vehicle-arrival-time">{arrivalTime}</div>
 
         </TransportItem>
     )

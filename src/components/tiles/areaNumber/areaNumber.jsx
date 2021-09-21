@@ -6,6 +6,7 @@ import ChartCell from "@components/common/chart/chartCell"
 import ChartInfo from "@components/common/chart/chartInfo"
 import AreaChart from "@components/tiles/areaNumber/areaChart"
 import Loader from "@components/common/loader/Loader"
+import ChartHelp from "@components/common/chart/chartHelp"
 
 import request from "@utils/request"
 import { TIMESERIES_PATH } from "@utils/constants"
@@ -14,6 +15,7 @@ import { convertToHour } from "@utils/helpers"
 
 const AreaNumber = ({ route, path, title, period: delta }) => {
 
+    const [openHelp, setOpenHelp] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [timeseries, setTimeseries] = useState([])
@@ -39,26 +41,30 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
     if (!route) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <ChartMessage text="No route chosen" icon="empty-icon"/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (error) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <Loader />
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (!timeseries.length) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
             <ChartMessage text="No data points" icon="warning-icon"/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 
@@ -67,9 +73,10 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
     return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} subtitle={route}/>
+            <ChartHeader refresh={queryData} title={title} subtitle={route} openHelp={() => setOpenHelp(true)} />
             <ChartInfo main={lastValue} sub={`Period: ${period}h`}/>
             <AreaChart data={timeseries}/>
+            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 }

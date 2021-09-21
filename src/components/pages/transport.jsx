@@ -11,8 +11,7 @@ import { STOPS_PATH, STOPS_NEAREST_PATH } from "@utils/constants"
 
 const TransportItemsLoading = () => {
     return (
-        new Array(10).fill(null).map((item, index) =>
-                <TransportItem key={index} loading={true}/>,
+        new Array(10).fill(null).map((item, index) => <TransportItem key={index} loading={true}/>,
         )
     )
 }
@@ -34,7 +33,7 @@ const TransportPage = () => {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             }),
-            error => setUserLocation(null),
+            () => setUserLocation(null),
         )
     }, [])
 
@@ -121,25 +120,30 @@ const TransportPage = () => {
                     </div>
                 }
                 <div className="transport-result">
-                    {selectedStop && <TransportStop selected={true} stop={selectedStop} onClick={hideSelectedStop}/>}
-                    {loading && <TransportItemsLoading/>}
-                    {!loading && !selectedStop && stops.map(stop =>
-                        <TransportStop
-                            key={stop._id}
-                            selected={false}
-                            stop={stop}
-                            onClick={() => queryArrivals(stop)}
+                    {selectedStop
+                        && <TransportStop
+                            selected={true}
+                            stop={selectedStop}
+                            onClick={hideSelectedStop}
                             userLocation={userLocation}
-                        />,
+                        />
+                    }
+                    {loading && <TransportItemsLoading/>}
+                    {!loading && !selectedStop && stops.map(stop => <TransportStop
+                        key={stop._id}
+                        selected={false}
+                        stop={stop}
+                        onClick={() => queryArrivals(stop)}
+                        userLocation={userLocation}
+                    />,
                     )}
-                    {!loading && error &&
-                        <div className="transport-default-text">
+                    {!loading && error
+                        && <div className="transport-default-text">
                             Couldn't find stops by provided query. Please, try
                             again or later...
                         </div>
                     }
-                    {!loading && vehicles.map((vehicle, index) =>
-                        <TransportVehicle key={index} vehicle={vehicle}/>,
+                    {!loading && vehicles.map((vehicle, index) => <TransportVehicle key={index} vehicle={vehicle}/>,
                     )}
                 </div>
             </div>

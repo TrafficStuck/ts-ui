@@ -16,7 +16,7 @@
         display: flex
         color: $grey
         font-size: 24px
-        padding: 15px 15px 10px 15px
+        padding: 15px 10px 5px 15px
         text-transform: uppercase
         justify-content: space-between
         background-color: $black
@@ -30,6 +30,8 @@
         .chart-subtitle
             color: $yellow
             font-weight: bold
+        .chart-info-icon
+            cursor: pointer
 
     .chart-message
         display: flex
@@ -59,4 +61,35 @@
             font-size: 18px
             color: $grey
 
-
+.chart-help
+    background-color: $black-light
+    &-header
+        color: $yellow
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        margin: 5px 0 10px 0
+        &-title
+            color: $grey
+            font-size: 24px
+            font-weight: bold
+            text-transform: upperCase
+        &-route
+            color: $yellow
+            font-size: 24px
+            font-weight: bold
+    &-desc
+        color: $grey
+        font-size: 18px
+    &-download
+        &-button
+            display: flex
+            align-items: center
+            color: $yellow
+            text-transform: upperCase
+            font-size: 18px
+            margin-top: 10px
+        &:hover
+            cursor: pointer
+        &-icon
+            margin-right: 5px
