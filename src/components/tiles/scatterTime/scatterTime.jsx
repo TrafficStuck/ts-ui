@@ -13,7 +13,7 @@ import { formatTime } from "@utils/helpers"
 import "./scatterTime.sass"
 
 
-const ScatterTime = ({ route, path, title }) => {
+const ScatterTime = ({ route, path, title, openHelp }) => {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -43,32 +43,32 @@ const ScatterTime = ({ route, path, title }) => {
 
     if (!route) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="No route chosen" icon="empty-icon"/>
         </ChartCell>
     )
     else if (error) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <Loader/>
         </ChartCell>
     )
     else if (!coordinates.length) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="No data points" icon="warning-icon"/>
         </ChartCell>
     )
 
     return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title} subtitle={route}/>
+            <ChartHeader refresh={queryData} title={title} subtitle={route} openHelp={openHelp}/>
             <div className="scatter-chart">
                 <div className="scatter-chart-time">{timestamp}</div>
                 <ScatterChart data={coordinates}/>

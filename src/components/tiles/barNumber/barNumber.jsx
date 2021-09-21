@@ -13,7 +13,7 @@ import { STATIC_PATH } from "@utils/constants"
 import "./barNumber.sass"
 
 
-const BarNumber = ({ path, title }) => {
+const BarNumber = ({ path, title, openHelp }) => {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -40,19 +40,19 @@ const BarNumber = ({ path, title }) => {
 
     if (error) return (
         <ChartCell className="bar-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="bar-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <Loader/>
         </ChartCell>
     )
     else if (!data.length) return (
         <ChartCell className="bar-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartMessage text="No data points" icon="warning-icon"/>
         </ChartCell>
     )
@@ -60,7 +60,7 @@ const BarNumber = ({ path, title }) => {
     const { id, value } = data[activeIndex]
     return (
         <ChartCell className="bar-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartInfo main={value} sub={`Transport: ${id}`}/>
             <div className="bar-chart">
                 <BarChart

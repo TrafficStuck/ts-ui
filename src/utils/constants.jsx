@@ -2,9 +2,9 @@ import React from "react"
 
 
 // ICONS
+export const DEFAULT_ICON_VIEWBOX = "0 0 24 24"
 export const BIG_ICON_SIZE = 54
 export const NORMAL_ICON_SIZE = 24
-export const DEFAULT_ICON_VIEWBOX = "0 0 24 24"
 
 // COLORS
 export const YELLOW_COLOR = "#EBC673"

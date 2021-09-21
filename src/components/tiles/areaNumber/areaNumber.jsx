@@ -12,7 +12,7 @@ import { TIMESERIES_PATH } from "@utils/constants"
 import { convertToHour } from "@utils/helpers"
 
 
-const AreaNumber = ({ route, path, title, period: delta }) => {
+const AreaNumber = ({ route, path, title, period: delta, openHelp }) => {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -39,25 +39,25 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
     if (!route) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="No route chosen" icon="empty-icon"/>
         </ChartCell>
     )
     else if (error) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <Loader />
         </ChartCell>
     )
     else if (!timeseries.length) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title}/>
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="No data points" icon="warning-icon"/>
         </ChartCell>
     )
@@ -67,7 +67,7 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
     return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} subtitle={route}/>
+            <ChartHeader refresh={queryData} title={title} subtitle={route} openHelp={openHelp}/>
             <ChartInfo main={lastValue} sub={`Period: ${period}h`}/>
             <AreaChart data={timeseries}/>
         </ChartCell>

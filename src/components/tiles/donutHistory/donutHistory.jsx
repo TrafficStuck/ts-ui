@@ -17,7 +17,7 @@ import "./donutHistory.sass"
 const CHART_LIMIT_ITEMS = 18
 
 
-const DonutHistory = ({ title }) => {
+const DonutHistory = ({ title, openHelp }) => {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -44,19 +44,19 @@ const DonutHistory = ({ title }) => {
 
     if (error) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <Loader/>
         </ChartCell>
     )
     else if (!data.length) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartMessage text="No data points" icon="warning-icon"/>
         </ChartCell>
     )
@@ -65,7 +65,7 @@ const DonutHistory = ({ title }) => {
     const lastItemPercentage = `${Math.round(lastItem.value)}%`
     return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <div className="pie-chart">
                 <ChartInfo main={lastItemPercentage} />
                 <PieChart data={lastItem} />

@@ -13,7 +13,7 @@ import { STATIC_PATH } from "@utils/constants"
 import "./donutNumber.sass"
 
 
-const DonutNumber = ({ path, title }) => {
+const DonutNumber = ({ path, title, openHelp }) => {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -40,19 +40,19 @@ const DonutNumber = ({ path, title }) => {
 
     if (error) return (
         <ChartCell className="donut-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="donut-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <Loader/>
         </ChartCell>
     )
     else if (!data.length) return (
         <ChartCell className="donut-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <ChartMessage text="No data points" icon="warning-icon"/>
         </ChartCell>
     )
@@ -60,7 +60,7 @@ const DonutNumber = ({ path, title }) => {
     const { id, value } = data[activeIndex]
     return (
         <ChartCell className="donut-number">
-            <ChartHeader refresh={queryData} title={title} />
+            <ChartHeader refresh={queryData} title={title} openHelp={openHelp} />
             <div className="pie-chart">
                 <ChartInfo main={value} sub={id} />
                 <PieChart
