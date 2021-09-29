@@ -50,3 +50,6 @@ export const HOUR_SECONDS = 3600
 export const GOOGLE_MAP_DIRECTION_URL = "https://www.google.com/maps/dir/"
 export const GOOGLE_MAP_WALKING_TRAVEL_MODE = "walking"
 export const GOOGLE_MAP_API_VERSION = 1
+
+// EXPORT STUFF
+export const CSV_FORMAT = "text/csv"

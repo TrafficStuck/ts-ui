@@ -41,30 +41,26 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
     if (!route) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="No route chosen" icon="empty-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (error) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <Loader />
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (!timeseries.length) return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="No data points" icon="warning-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 
@@ -73,10 +69,20 @@ const AreaNumber = ({ route, path, title, period: delta }) => {
 
     return (
         <ChartCell className="area-number">
-            <ChartHeader refresh={queryData} title={title} subtitle={route} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader
+                refresh={queryData}
+                title={title}
+                subtitle={route}
+                openHelp={() => setOpenHelp(true)}
+            />
             <ChartInfo main={lastValue} sub={`Period: ${period}h`}/>
             <AreaChart data={timeseries}/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
+            <ChartHelp
+                chartData={timeseries}
+                chartName={title}
+                open={openHelp}
+                close={() => setOpenHelp(false)}
+            />
         </ChartCell>
     )
 }

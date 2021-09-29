@@ -45,31 +45,27 @@ const ScatterTime = ({ route, path, title }) => {
 
     if (!route) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="No route chosen" icon="empty-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (error) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <Loader/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (!coordinates.length) return (
         <ChartCell className="scatter-time">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartHeader refresh={queryData} title={title} openHelp={openHelp}/>
             <ChartMessage text="No data points" icon="warning-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 
@@ -80,7 +76,12 @@ const ScatterTime = ({ route, path, title }) => {
                 <div className="scatter-chart-time">{timestamp}</div>
                 <ScatterChart data={coordinates}/>
             </div>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
+            <ChartHelp
+                chartData={coordinates}
+                chartName={title}
+                open={openHelp}
+                close={() => setOpenHelp(false)}
+            />
         </ChartCell>
     )
 }

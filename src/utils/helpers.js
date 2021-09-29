@@ -29,3 +29,26 @@ export function getGoogleMapURL(destLocation, originLocation=null) {
 
     return googleMapUrl.href
 }
+
+export function exportFile(data, fileName, fileType) {
+    const blob = new Blob([data], { type: fileType })
+
+    const link = document.createElement("a")
+    link.download = fileName
+    link.href = window.URL.createObjectURL(blob)
+
+    document.body.appendChild(link)
+
+    link.click()
+    link.remove()
+}
+
+export function convertCSV(json) {
+    const headers = Object.keys(json[0]).join(",")
+    const data = json.reduce((acc, item) => {
+        acc.push(Object.values(item).join(","))
+        return acc
+    }, [])
+
+    return [headers, ...data].join("\n")
+}

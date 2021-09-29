@@ -46,23 +46,20 @@ const DonutHistory = ({ title }) => {
 
     if (error) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="Data could not be loaded" icon="error-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (loading) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <Loader/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
     else if (!data.length) return (
         <ChartCell className="donut-history">
-            <ChartHeader refresh={queryData} title={title} openHelp={() => setOpenHelp(true)} />
+            <ChartHeader refresh={queryData} title={title} />
             <ChartMessage text="No data points" icon="warning-icon"/>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
         </ChartCell>
     )
 
@@ -78,7 +75,12 @@ const DonutHistory = ({ title }) => {
             <div className="bar-chart">
                 <BarChart data={data} />
             </div>
-            <ChartHelp chartName={title} open={openHelp} close={() => setOpenHelp(false)}/>
+            <ChartHelp
+                chartData={data}
+                chartName={title}
+                open={openHelp}
+                close={() => setOpenHelp(false)}
+            />
         </ChartCell>
     )
 }
